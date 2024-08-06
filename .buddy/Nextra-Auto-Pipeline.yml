@@ -1,7 +1,17 @@
 - pipeline: "Nextra-Auto-Pipeline"
   events:
-  - type: "PUSH"
-    refs:
-    - "refs/heads/main"
+    - type: "PUSH"
+      refs:
+        - "refs/heads/main"
   fail_on_prepare_env_warning: true
   resources: "NANO"
+  actions:
+    - action: "npm test"
+      type: "BUILD"
+      docker_image_name: "library/node"
+      docker_image_tag: "20"
+      execute_commands:
+        - "# yarn install"
+        - "npm install"
+        - "npm test"
+      shell: "BASH"
